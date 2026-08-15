@@ -4,14 +4,14 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Core Mock Database of Coins
-    const coinData = [
-        { id: 'btc', name: 'Bitcoin', symbol: 'BTC', price: 63240.50, change: 2.45, cap: '1.24T', volume: '28.4B', icon: 'https://assets.coingecko.com/coins/images/1/small/bitcoin.png', SparklineData: [62100, 62300, 62000, 62800, 63100, 62900, 63240] },
-        { id: 'eth', name: 'Ethereum', symbol: 'ETH', price: 3495.20, change: 1.12, cap: '420.5B', volume: '15.2B', icon: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png', SparklineData: [3450, 3480, 3440, 3460, 3510, 3470, 3495] },
-        { id: 'sol', name: 'Solana', symbol: 'SOL', price: 143.85, change: 8.92, cap: '66.8B', volume: '3.8B', icon: 'https://assets.coingecko.com/coins/images/4128/small/solana.png', SparklineData: [130, 134, 132, 137, 140, 139, 143.85] },
-        { id: 'bnb', name: 'Binance Coin', symbol: 'BNB', price: 582.40, change: -0.65, cap: '85.4B', volume: '1.9B', icon: 'https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png', SparklineData: [590, 588, 584, 586, 583, 585, 582.40] },
-        { id: 'ada', name: 'Cardano', symbol: 'ADA', price: 0.485, change: -2.31, cap: '17.3B', volume: '410M', icon: 'https://assets.coingecko.com/coins/images/975/small/cardano.png', SparklineData: [0.50, 0.495, 0.498, 0.49, 0.488, 0.487, 0.485] },
-        { id: 'dot', name: 'Polkadot', symbol: 'DOT', price: 6.28, change: 3.14, cap: '8.9B', volume: '180M', icon: 'https://assets.coingecko.com/coins/images/12171/small/polkadot.png', SparklineData: [6.05, 6.12, 6.08, 6.15, 6.22, 6.20, 6.28] }
+    // Core Database of Coins with Gecko API mapping IDs
+    let coinData = [
+        { id: 'btc', geckoId: 'bitcoin', name: 'Bitcoin', symbol: 'BTC', price: 63240.50, change: 2.45, cap: '1.24T', volume: '28.4B', icon: 'https://assets.coingecko.com/coins/images/1/small/bitcoin.png', SparklineData: [62100, 62300, 62000, 62800, 63100, 62900, 63240] },
+        { id: 'eth', geckoId: 'ethereum', name: 'Ethereum', symbol: 'ETH', price: 3495.20, change: 1.12, cap: '420.5B', volume: '15.2B', icon: 'https://assets.coingecko.com/coins/images/279/small/ethereum.png', SparklineData: [3450, 3480, 3440, 3460, 3510, 3470, 3495] },
+        { id: 'sol', geckoId: 'solana', name: 'Solana', symbol: 'SOL', price: 143.85, change: 8.92, cap: '66.8B', volume: '3.8B', icon: 'https://assets.coingecko.com/coins/images/4128/small/solana.png', SparklineData: [130, 134, 132, 137, 140, 139, 143.85] },
+        { id: 'bnb', geckoId: 'binancecoin', name: 'Binance Coin', symbol: 'BNB', price: 582.40, change: -0.65, cap: '85.4B', volume: '1.9B', icon: 'https://assets.coingecko.com/coins/images/825/small/bnb-icon2_2x.png', SparklineData: [590, 588, 584, 586, 583, 585, 582.40] },
+        { id: 'ada', geckoId: 'cardano', name: 'Cardano', symbol: 'ADA', price: 0.485, change: -2.31, cap: '17.3B', volume: '410M', icon: 'https://assets.coingecko.com/coins/images/975/small/cardano.png', SparklineData: [0.50, 0.495, 0.498, 0.49, 0.488, 0.487, 0.485] },
+        { id: 'dot', geckoId: 'polkadot', name: 'Polkadot', symbol: 'DOT', price: 6.28, change: 3.14, cap: '8.9B', volume: '180M', icon: 'https://assets.coingecko.com/coins/images/12171/small/polkadot.png', SparklineData: [6.05, 6.12, 6.08, 6.15, 6.22, 6.20, 6.28] }
     ];
 
     // Fiat rates relative to USD (USD is our base)
@@ -213,44 +213,92 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     /* ==========================================================================
-       Live Tickers Updates (Simulating Real Time Shifts)
+       Live Tickers Updates (Real API Integration via CoinGecko)
        ========================================================================== */
-    setInterval(() => {
-        if (coinData.length === 0) return;
+    function formatLargeNumber(num) {
+        if (!num) return '0.00';
+        if (num >= 1e12) {
+            return (num / 1e12).toFixed(2) + 'T';
+        } else if (num >= 1e9) {
+            return (num / 1e9).toFixed(2) + 'B';
+        } else if (num >= 1e6) {
+            return (num / 1e6).toFixed(2) + 'M';
+        }
+        return num.toLocaleString();
+    }
 
-        // Choose a random coin to tick
+    async function fetchLivePrices() {
+        try {
+            const ids = coinData.map(c => c.geckoId).join(',');
+            const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${ids}&order=market_cap_desc&sparkline=true&price_change_percentage=24h`;
+            
+            const response = await fetch(url);
+            if (!response.ok) throw new Error('API Rate limit or network error');
+            
+            const data = await response.json();
+            
+            data.forEach(item => {
+                const coin = coinData.find(c => c.geckoId === item.id);
+                if (coin) {
+                    const oldPrice = coin.price;
+                    coin.price = item.current_price;
+                    coin.change = item.price_change_percentage_24h || 0;
+                    coin.cap = formatLargeNumber(item.market_cap);
+                    coin.volume = formatLargeNumber(item.total_volume);
+                    coin.icon = item.image;
+                    
+                    if (item.sparkline_in_7d && item.sparkline_in_7d.price) {
+                        const rawPrices = item.sparkline_in_7d.price;
+                        // Sample the array to have 7 evenly spaced points
+                        const sampled = [];
+                        const step = Math.floor(rawPrices.length / 7);
+                        for (let i = 0; i < 7; i++) {
+                            sampled.push(rawPrices[Math.min(i * step, rawPrices.length - 1)]);
+                        }
+                        coin.SparklineData = sampled;
+                    }
+
+                    // Trigger flash effect if price changed
+                    const priceCell = document.getElementById(`price-${coin.id}`);
+                    if (priceCell && oldPrice !== coin.price) {
+                        const diff = coin.price - oldPrice;
+                        if (diff > 0) {
+                            priceCell.classList.add('flash-up');
+                            setTimeout(() => priceCell.classList.remove('flash-up'), 800);
+                        } else if (diff < 0) {
+                            priceCell.classList.add('flash-down');
+                            setTimeout(() => priceCell.classList.remove('flash-down'), 800);
+                        }
+                    }
+                }
+            });
+            
+            renderMarketTable();
+            calculateSwap();
+        } catch (error) {
+            console.warn('Fallen back to simulation due to API Rate Limit:', error);
+            // Run fallback simulation iteration
+            simulateTickerTick();
+        }
+    }
+
+    // Fallback ticker simulation when API rate limited
+    function simulateTickerTick() {
         const randomIndex = Math.floor(Math.random() * coinData.length);
         const coin = coinData[randomIndex];
-        
-        // Generate minor fluctuation between -0.6% and +0.6%
-        const fluctuation = (Math.random() * 1.2 - 0.6) / 100;
+        const fluctuation = (Math.random() * 0.8 - 0.4) / 100;
         const oldPrice = coin.price;
         coin.price = oldPrice * (1 + fluctuation);
-        
-        // Adjust the 24h change value slightly
         coin.change += (fluctuation * 100);
         
-        // Slide standard chart points array
         coin.SparklineData.push(coin.price);
         coin.SparklineData.shift();
 
-        // Update elements locally on UI
-        const priceCell = document.getElementById(`price-${coin.id}`);
-        const changeCell = document.getElementById(`change-${coin.id}`);
-        
-        if (priceCell && changeCell) {
-            const isPositive = coin.change >= 0;
-            priceCell.textContent = `$${coin.price.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 4 })}`;
-            changeCell.textContent = `${isPositive ? '+' : ''}${coin.change.toFixed(2)}%`;
-            
-            // Adjust positive/negative color classes
-            if (isPositive) {
-                changeCell.className = 'market-change-cell positive';
-            } else {
-                changeCell.className = 'market-change-cell negative';
-            }
+        renderMarketTable();
+        calculateSwap();
 
-            // Flash effect based on movement direction
+        const priceCell = document.getElementById(`price-${coin.id}`);
+        if (priceCell) {
             if (fluctuation >= 0) {
                 priceCell.classList.add('flash-up');
                 setTimeout(() => priceCell.classList.remove('flash-up'), 800);
@@ -258,21 +306,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 priceCell.classList.add('flash-down');
                 setTimeout(() => priceCell.classList.remove('flash-down'), 800);
             }
-            
-            // Update sparkline chart column in row
-            const tr = priceCell.parentElement;
-            if (tr) {
-                const chartCell = tr.querySelector('.table-chart-cell');
-                if (chartCell) {
-                    chartCell.innerHTML = buildSparkline(coin.SparklineData, isPositive);
-                }
-            }
         }
-        
-        // Recalculate converter rate display details if the active tokens are impacted
-        calculateSwap();
+    }
 
-    }, 3000);
+    // Run client side ticking on top of base values
+    setInterval(() => {
+        // Ticks prices every 5 seconds to keep dashboard moving between real API loads
+        simulateTickerTick();
+    }, 5000);
 
 
     /* ==========================================================================
@@ -460,6 +501,9 @@ document.addEventListener('DOMContentLoaded', () => {
     /* ==========================================================================
        Initialize View on load
        ========================================================================== */
-    renderMarketTable();
-    calculateSwap();
+    // Fetch live market data on load
+    fetchLivePrices();
+    
+    // Poll API every 30 seconds for real price sync
+    setInterval(fetchLivePrices, 30000);
 });
