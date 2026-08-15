@@ -79,9 +79,11 @@ document.addEventListener('DOMContentLoaded', () => {
         navMenu.classList.toggle('active');
     });
 
-    // Close menu when a link is clicked
+    // Close menu and set active class when a link is clicked
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
+            navLinks.forEach(l => l.classList.remove('active'));
+            link.classList.add('active');
             hamburgerBtn.classList.remove('active');
             navMenu.classList.remove('active');
         });
