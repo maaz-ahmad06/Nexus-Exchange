@@ -388,6 +388,76 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* ==========================================================================
+       Authentication Modal Logic (Sign In / Sign Up)
+       ========================================================================== */
+    const authModal = document.getElementById('auth-modal');
+    const openSigninBtn = document.getElementById('open-signin-btn');
+    const openSignupBtn = document.getElementById('open-signup-btn');
+    const mobileSigninBtn = document.getElementById('mobile-signin-btn');
+    const mobileSignupBtn = document.getElementById('mobile-signup-btn');
+    const closeAuthModal = document.getElementById('close-auth-modal');
+    const tabSigninBtn = document.getElementById('tab-signin-btn');
+    const tabSignupBtn = document.getElementById('tab-signup-btn');
+    const signinForm = document.getElementById('signin-form');
+    const signupForm = document.getElementById('signup-form');
+
+    function openModal(defaultTab = 'signin') {
+        authModal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+        switchTab(defaultTab);
+    }
+
+    function closeModal() {
+        authModal.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+
+    function switchTab(tab) {
+        if (tab === 'signin') {
+            tabSigninBtn.classList.add('active');
+            tabSignupBtn.classList.remove('active');
+            signinForm.classList.add('active-form');
+            signupForm.classList.remove('active-form');
+        } else {
+            tabSigninBtn.classList.remove('active');
+            tabSignupBtn.classList.add('active');
+            signinForm.classList.remove('active-form');
+            signupForm.classList.add('active-form');
+        }
+    }
+
+    // Event Listeners
+    if (openSigninBtn) openSigninBtn.addEventListener('click', () => openModal('signin'));
+    if (openSignupBtn) openSignupBtn.addEventListener('click', () => openModal('signup'));
+    if (mobileSigninBtn) mobileSigninBtn.addEventListener('click', () => openModal('signin'));
+    if (mobileSignupBtn) mobileSignupBtn.addEventListener('click', () => openModal('signup'));
+    if (closeAuthModal) closeAuthModal.addEventListener('click', closeModal);
+
+    // Close when clicking outside card
+    authModal.addEventListener('click', (e) => {
+        if (e.target === authModal) {
+            closeModal();
+        }
+    });
+
+    // Tab buttons trigger
+    tabSigninBtn.addEventListener('click', () => switchTab('signin'));
+    tabSignupBtn.addEventListener('click', () => switchTab('signup'));
+
+    // Simulated Form Submit
+    signinForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Welcome back to Nexus Exchange! Login successful.');
+        closeModal();
+    });
+
+    signupForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Registration complete! Welcome to Nexus Exchange.');
+        closeModal();
+    });
+
+    /* ==========================================================================
        Initialize View on load
        ========================================================================== */
     renderMarketTable();

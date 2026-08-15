@@ -76,12 +76,19 @@
                         <li><a href="#converter" class="nav-link">Convert</a></li>
                         <li><a href="#security" class="nav-link">Security</a></li>
                         <li><a href="#contact" class="nav-link">Contact</a></li>
+                        <!-- Mobile-only Auth Buttons -->
+                        <li class="mobile-only-auth">
+                            <button class="btn btn-secondary w-full" id="mobile-signin-btn">Sign In</button>
+                        </li>
+                        <li class="mobile-only-auth">
+                            <button class="btn btn-primary w-full glow-effect" id="mobile-signup-btn">Get Started</button>
+                        </li>
                     </ul>
                 </nav>
 
                 <div class="header-actions">
-                    <a href="#" class="btn btn-text">Sign In</a>
-                    <a href="#" class="btn btn-primary glow-effect">Get Started</a>
+                    <button class="btn btn-text" id="open-signin-btn">Sign In</button>
+                    <button class="btn btn-primary glow-effect" id="open-signup-btn">Get Started</button>
                 </div>
 
                 <!-- Hamburger Menu -->
@@ -484,6 +491,59 @@
                 </div>
             </div>
         </footer>
+    </div>
+
+    <!-- Authentication Modal (Sign In / Sign Up) -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="auth-card glass-card">
+            <button class="close-modal-btn" id="close-auth-modal" aria-label="Close Modal">&times;</button>
+            
+            <div class="auth-tabs">
+                <button class="auth-tab-btn active" id="tab-signin-btn" data-tab="signin">Sign In</button>
+                <button class="auth-tab-btn" id="tab-signup-btn" data-tab="signup">Sign Up</button>
+            </div>
+
+            <!-- Sign In Form -->
+            <form id="signin-form" class="auth-form active-form" onsubmit="event.preventDefault();">
+                <div class="input-field-group">
+                    <label for="signin-email">Email Address</label>
+                    <input type="email" id="signin-email" placeholder="name@example.com" required>
+                </div>
+                <div class="input-field-group">
+                    <div class="label-row">
+                        <label for="signin-password">Password</label>
+                        <a href="#" class="forgot-pass-link">Forgot Password?</a>
+                    </div>
+                    <input type="password" id="signin-password" placeholder="••••••••" required>
+                </div>
+                <div class="checkbox-field-group">
+                    <input type="checkbox" id="signin-remember">
+                    <label for="signin-remember">Remember me for 30 days</label>
+                </div>
+                <button type="submit" class="btn btn-primary w-full glow-effect">Sign In to Account</button>
+            </form>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="auth-form" onsubmit="event.preventDefault();">
+                <div class="input-field-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" placeholder="John Doe" required>
+                </div>
+                <div class="input-field-group">
+                    <label for="signup-email">Email Address</label>
+                    <input type="email" id="signup-email" placeholder="name@example.com" required>
+                </div>
+                <div class="input-field-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Min. 8 characters" required>
+                </div>
+                <div class="checkbox-field-group">
+                    <input type="checkbox" id="signup-agree" required>
+                    <label for="signup-agree">I agree to the <a href="#" class="terms-link">Terms &amp; Conditions</a></label>
+                </div>
+                <button type="submit" class="btn btn-primary w-full glow-effect">Create Free Account</button>
+            </form>
+        </div>
     </div>
 
     <!-- Script -->
