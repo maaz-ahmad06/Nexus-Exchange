@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nexus Exchange - The ultimate decentralized and high-speed cryptocurrency exchange platform. Trade BTC, ETH, SOL and more with lowest fees.">
+    <meta name="keywords" content="cryptocurrency exchange, buy bitcoin, crypto trading, ethereum, solana, nexus exchange, secure wallet">
+    <meta name="author" content="Nexus Exchange">
+    <title>Nexus Exchange | Trade Crypto Instantly</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Preloader Screen -->
+    <div id="preloader">
+        <div class="loader-content">
+            <div class="loader-logo">
+                <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="30" cy="30" r="28" stroke="url(#loaderGrad)" stroke-width="4" stroke-dasharray="180" class="circle-spin" />
+                    <polygon points="30,15 42,38 18,38" fill="url(#logoGrad)" />
+                    <defs>
+                        <linearGradient id="loaderGrad" x1="0" y1="0" x2="60" y2="60" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#7f00ff" />
+                        </linearGradient>
+                        <linearGradient id="logoGrad" x1="18" y1="15" x2="42" y2="38" gradientUnits="userSpaceOnUse">
+                            <stop offset="0%" stop-color="#00f2fe" />
+                            <stop offset="100%" stop-color="#e100ff" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <h2 class="loader-text">NEXUS<span>EXCHANGE</span></h2>
+            <div class="loader-bar-bg">
+                <div class="loader-bar-fill"></div>
+            </div>
+            <div class="loader-counter">0%</div>
+        </div>
+    </div>
+
+    <!-- Main Wrapper to prevent horizontal overflow -->
+    <div class="app-container">
+
+        <!-- Glowing Decorative Background Orbs -->
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
+        <div class="bg-orb orb-3"></div>
+
+        <!-- Header -->
+        <header id="main-header">
+            <div class="header-container">
+                <a href="#" class="logo">
+                    <svg width="35" height="35" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <polygon points="20,8 30,28 10,28" fill="url(#headerLogoGrad)" />
+                        <defs>
+                            <linearGradient id="headerLogoGrad" x1="10" y1="8" x2="30" y2="28" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#00f2fe" />
+                                <stop offset="100%" stop-color="#7f00ff" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                    <span>NEXUS</span>
+                </a>
+
+                <nav class="nav-menu" id="nav-menu">
+                    <ul>
+                        <li><a href="#markets" class="nav-link">Markets</a></li>
+                        <li><a href="#features" class="nav-link">Why Nexus</a></li>
+                        <li><a href="#converter" class="nav-link">Convert</a></li>
+                        <li><a href="#security" class="nav-link">Security</a></li>
+                        <li><a href="#contact" class="nav-link">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <div class="header-actions">
+                    <a href="#" class="btn btn-text">Sign In</a>
+                    <a href="#" class="btn btn-primary glow-effect">Get Started</a>
+                </div>
+
+                <!-- Hamburger Menu -->
+                <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle Menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-container">
+                <div class="hero-content reveal">
+                    <div class="badge-glow">
+                        <span class="badge-dot"></span>
+                        <span class="badge-text">v2.4 Live Network Upgrade Complete</span>
+                    </div>
+                    <h1 class="hero-title">
+                        Secure &amp; Instant <br>
+                        <span class="gradient-text">Cryptocurrency</span> Exchange
+                    </h1>
+                    <p class="hero-subtitle">
+                        Trade Bitcoin, Ethereum, Solana, and 100+ digital assets with minimal latency, maximum security, and the lowest transaction fees on the market.
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#converter" class="btn btn-primary btn-large glow-effect">Start Trading Now</a>
+                        <a href="#markets" class="btn btn-secondary btn-large">View Markets</a>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="stat-volume">$3.8B+</span>
+                            <span class="stat-label">24h Trade Volume</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="stat-traders">4.2M+</span>
+                            <span class="stat-label">Active Users</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">0.05%</span>
+                            <span class="stat-label">Maker/Taker Fees</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-graphic reveal">
+                    <div class="glass-card main-trading-card">
+                        <div class="card-header">
+                            <div class="user-profile">
+                                <span class="avatar-mock">JD</span>
+                                <div>
+                                    <h4>Wallet Balance</h4>
+                                    <p>Account Verified</p>
+                                </div>
+                            </div>
+                            <span class="status-indicator live">LIVE</span>
+                        </div>
+                        <div class="balance-display">
+                            <span class="balance-label">Total Balance (USD)</span>
+                            <h2 class="balance-amount">$34,892.40</h2>
+                            <span class="balance-change positive">+8.42% (24h)</span>
+                        </div>
+                        
+                        <!-- Mini Portfolio visual list -->
+                        <div class="portfolio-list">
+                            <div class="portfolio-item">
+                                <div class="coin-info">
+                                    <img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" alt="Bitcoin Logo" class="coin-icon">
+                                    <div>
+                                        <h5>Bitcoin</h5>
+                                        <span>BTC</span>
+                                    </div>
+                                </div>
+                                <div class="coin-holding">
+                                    <h5>0.45 BTC</h5>
+                                    <span>$28,520.10</span>
+                                </div>
+                            </div>
+                            <div class="portfolio-item">
+                                <div class="coin-info">
+                                    <img src="https://assets.coingecko.com/coins/images/279/small/ethereum.png" alt="Ethereum Logo" class="coin-icon">
+                                    <div>
+                                        <h5>Ethereum</h5>
+                                        <span>ETH</span>
+                                    </div>
+                                </div>
+                                <div class="coin-holding">
+                                    <h5>1.82 ETH</h5>
+                                    <span>$6,372.30</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Graphic chart visual -->
+                        <div class="card-chart-placeholder">
+                            <svg viewBox="0 0 300 80" class="hero-chart-line">
+                                <defs>
+                                    <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                                        <stop offset="0%" stop-color="rgba(0, 242, 254, 0.4)" />
+                                        <stop offset="100%" stop-color="rgba(0, 242, 254, 0.0)" />
+                                    </linearGradient>
+                                </defs>
+                                <path d="M 0,60 Q 30,50 60,35 T 120,45 T 180,20 T 240,40 T 300,10 L 300,80 L 0,80 Z" fill="url(#chartGrad)" />
+                                <path d="M 0,60 Q 30,50 60,35 T 120,45 T 180,20 T 240,40 T 300,10" fill="none" stroke="#00f2fe" stroke-width="3" />
+                                <circle cx="300" cy="10" r="5" fill="#00f2fe" />
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating mini badges for decorative look -->
+                    <div class="floating-badge badge-top-right">
+                        <img src="https://assets.coingecko.com/coins/images/4128/small/solana.png" alt="Solana Logo">
+                        <div>
+                            <span>Solana (SOL)</span>
+                            <strong class="positive">+12.8%</strong>
+                        </div>
+                    </div>
+
+                    <div class="floating-badge badge-bottom-left">
+                        <div class="shield-icon">🛡️</div>
+                        <div>
+                            <span>Cold Storage Secured</span>
+                            <strong>100% Insured</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Markets Section -->
+        <section id="markets" class="markets-section">
+            <div class="section-container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Cryptocurrency Markets</h2>
+                    <p class="section-subtitle">Real-time market rates and 24h performance metrics for trending assets.</p>
+                </div>
+
+                <div class="markets-tabs reveal">
+                    <button class="tab-btn active" data-filter="all">All Cryptos</button>
+                    <button class="tab-btn" data-filter="gainers">Top Gainers</button>
+                    <button class="tab-btn" data-filter="losers">Top Losers</button>
+                </div>
+
+                <div class="table-responsive-container reveal">
+                    <table class="market-table" id="market-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>24h Change</th>
+                                <th>Market Cap</th>
+                                <th>24h Volume</th>
+                                <th class="table-chart-header">Trend</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="market-table-body">
+                            <!-- Populated dynamically via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Nexus (Features) Section -->
+        <section id="features" class="features-section">
+            <div class="section-container">
+                <div class="section-header reveal">
+                    <h2 class="section-title">Why Choose Nexus Exchange?</h2>
+                    <p class="section-subtitle">We provide an enterprise-grade experience tailored for beginners and institutional traders alike.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card glass-card reveal">
+                        <div class="feature-icon bg-cyan">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <h3>Bank-Grade Security</h3>
+                        <p>98% of digital assets are stored in multi-signature cold wallets. Fully backed up and protected by industry-leading encryption.</p>
+                    </div>
+
+                    <div class="feature-card glass-card reveal">
+                        <div class="feature-icon bg-purple">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        </div>
+                        <h3>Lightning-Fast Execution</h3>
+                        <p>Our matching engine handles over 1,500,000 transactions per second, ensuring your orders execute with zero price slippage.</p>
+                    </div>
+
+                    <div class="feature-card glass-card reveal">
+                        <div class="feature-icon bg-blue">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        </div>
+                        <h3>Ultra-Low Trading Fees</h3>
+                        <p>Trade with maker/taker fees starting from just 0.05%. The more you trade, the lower your tier fees become.</p>
+                    </div>
+
+                    <div class="feature-card glass-card reveal">
+                        <div class="feature-icon bg-magenta">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <h3>24/7 Dedicated Support</h3>
+                        <p>Have questions? Our multilingual support team is available around the clock to assist you via live chat and email ticketing.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Swap / Converter Section -->
+        <section id="converter" class="converter-section">
+            <div class="section-container">
+                <div class="converter-layout">
+                    <div class="converter-info reveal">
+                        <h2 class="section-title">Instant Crypto Converter</h2>
+                        <p class="section-description">
+                            Swap your fiat or digital currencies instantly with no hidden spreads. Choose your tokens, enter the desired amount, and execute swaps in less than 50 milliseconds.
+                        </p>
+                        <div class="info-bullets">
+                            <div class="bullet-item">
+                                <div class="bullet-check">✓</div>
+                                <span>Zero extra fees for swaps</span>
+                            </div>
+                            <div class="bullet-item">
+                                <div class="bullet-check">✓</div>
+                                <span>Best price routing from liquidity providers</span>
+                            </div>
+                            <div class="bullet-item">
+                                <div class="bullet-check">✓</div>
+                                <span>Secured by smart contract audit reports</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="converter-box glass-card reveal">
+                        <h3 class="box-title">Quick Swap</h3>
+                        
+                        <!-- From Currency -->
+                        <div class="input-group-swap">
+                            <div class="input-details">
+                                <label for="swap-from-amount">You Pay</label>
+                                <span class="balance-indicator">Max: $5,000</span>
+                            </div>
+                            <div class="input-row">
+                                <input type="number" id="swap-from-amount" value="1000" placeholder="0.00" min="0">
+                                <select id="swap-from-asset" class="asset-dropdown">
+                                    <option value="USD">USD</option>
+                                    <option value="BTC">BTC</option>
+                                    <option value="ETH">ETH</option>
+                                    <option value="SOL">SOL</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Swap Divider & Button -->
+                        <div class="swap-divider-btn">
+                            <button id="swap-switch-btn" aria-label="Switch Assets">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="16 3 21 8 16 13"></polyline>
+                                    <line x1="21" y1="8" x2="9" y2="8"></line>
+                                    <polyline points="8 21 3 16 8 11"></polyline>
+                                    <line x1="3" y1="16" x2="15" y2="16"></line>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- To Currency -->
+                        <div class="input-group-swap">
+                            <div class="input-details">
+                                <label for="swap-to-amount">You Receive (Estimate)</label>
+                            </div>
+                            <div class="input-row">
+                                <input type="number" id="swap-to-amount" value="0.015" placeholder="0.00" readonly>
+                                <select id="swap-to-asset" class="asset-dropdown">
+                                    <option value="BTC">BTC</option>
+                                    <option value="ETH">ETH</option>
+                                    <option value="SOL">SOL</option>
+                                    <option value="USD">USD</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Conversion details -->
+                        <div class="rate-details">
+                            <span class="rate-label">Exchange Rate</span>
+                            <span class="rate-value" id="exchange-rate-text">1 USD = 0.000015 BTC</span>
+                        </div>
+
+                        <button class="btn btn-primary w-full swap-submit-btn glow-effect" id="swap-execute-btn">
+                            Execute Swap
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Security Section -->
+        <section id="security" class="security-section">
+            <div class="section-container">
+                <div class="security-layout">
+                    <div class="security-image reveal">
+                        <img src="https://images.unsplash.com/photo-1633158829585-23ba8f7c8caf?q=80&w=600&auto=format&fit=crop" alt="Vault Security Concept" class="responsive-web-img">
+                    </div>
+                    <div class="security-info reveal">
+                        <div class="badge-glow outline">
+                            <span class="badge-dot secure"></span>
+                            <span class="badge-text">Audited &amp; Regulatory Compliant</span>
+                        </div>
+                        <h2 class="section-title">Maximum Protection For Your Investments</h2>
+                        <p class="section-description">
+                            Your security is our absolute priority. By incorporating institutional-grade custody safeguards, we make sure that your funds are insured and protected from any malicious entities.
+                        </p>
+                        
+                        <div class="security-features">
+                            <div class="sec-item">
+                                <div class="sec-icon">🔒</div>
+                                <div>
+                                    <h4>Two-Factor Authentication (2FA)</h4>
+                                    <p>Secure logins and transactions with Google Authenticator, YubiKey, or SMS biometric codes.</p>
+                                </div>
+                            </div>
+                            <div class="sec-item">
+                                <div class="sec-icon">⚙️</div>
+                                <div>
+                                    <h4>IP Whitelisting &amp; Anti-Phishing</h4>
+                                    <p>Instantly restrict account withdrawals to verified IP addresses and custom confirmation links.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="contact">
+            <div class="footer-container">
+                <div class="footer-grid">
+                    <div class="footer-brand reveal">
+                        <a href="#" class="logo">
+                            <svg width="35" height="35" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <polygon points="20,8 30,28 10,28" fill="url(#footerLogoGrad)" />
+                                <defs>
+                                    <linearGradient id="footerLogoGrad" x1="10" y1="8" x2="30" y2="28" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#00f2fe" />
+                                        <stop offset="100%" stop-color="#7f00ff" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span>NEXUS</span>
+                        </a>
+                        <p class="footer-desc">
+                            The enterprise-ready cryptocurrency ecosystem. Buy, trade, and secure your assets with lowest transaction fees.
+                        </p>
+                        <div class="social-links">
+                            <a href="#" aria-label="Twitter">🐦</a>
+                            <a href="#" aria-label="Telegram">💬</a>
+                            <a href="#" aria-label="LinkedIn">💼</a>
+                            <a href="#" aria-label="Discord">🎮</a>
+                        </div>
+                    </div>
+
+                    <div class="footer-links reveal">
+                        <h4>Products</h4>
+                        <ul>
+                            <li><a href="#">Exchange Platform</a></li>
+                            <li><a href="#">Cold Storage Wallet</a></li>
+                            <li><a href="#">OTC Desk</a></li>
+                            <li><a href="#">Nexus Token (NEX)</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links reveal">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">API Documentation</a></li>
+                            <li><a href="#">Knowledge Base</a></li>
+                            <li><a href="#">Security Audits</a></li>
+                            <li><a href="#">Regulatory Licensing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-links newsletter-col reveal">
+                        <h4>Subscribe to Newsletter</h4>
+                        <p>Get weekly updates on crypto markets and Nexus feature releases.</p>
+                        <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscribed!');">
+                            <input type="email" placeholder="Your Email Address" required>
+                            <button type="submit" class="btn btn-primary">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2026 Nexus Exchange Platform. All rights reserved. Trade at your own risk. Digital assets are subject to volatility.</p>
+                    <div class="footer-bottom-links">
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Cookie settings</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Script -->
+    <script src="app.js"></script>
+</body>
+</html>
